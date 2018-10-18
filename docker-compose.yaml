@@ -1,0 +1,28 @@
+version: '2'
+services:
+  web:
+    image: dtrip-api
+    command: "gunicorn app:app -b 0.0.0.0:5000 --workers=4 --timeout=30 --log-level=debug"
+    ports:
+        - "127.0.0.1:5000:5000"
+
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    environment:
+        - DB_HOST=db
+    depends_on:
+        - db
+
+  parser:
+    restart: unless-stopped
+    image: dtrip-api
+    environment:
+        - DB_HOST=db
+    command: python parser.py --resync
+
+  db:
+    image: mongo:latest
+    volumes:
+       - ./data/db:/data/db
