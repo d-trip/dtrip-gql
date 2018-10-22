@@ -12,6 +12,7 @@ from mongoengine.fields import (
 
 
 class PostModel(DynamicDocument):
+    url = StringField()
     abs_rshares = IntField()
     active = DateTimeField()
     allow_curation_rewards = BooleanField()
@@ -60,7 +61,7 @@ class PostModel(DynamicDocument):
     patched = BooleanField()
     pending_payout_value = DictField()
     promoted = DictField()
-    reblogged_by = StringField()
+    reblogged_by = ListField(StringField())
     replies = ListField(StringField())  # TODO StringField?
     root_author = StringField()
     root_identifier = StringField()
