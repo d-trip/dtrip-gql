@@ -17,7 +17,7 @@ services:
 
   parser:
     restart: unless-stopped
-    image: dtrip-api
+    image: avral/dtrip-api
     environment:
         - DB_HOST=db
     command: python parser.py --resync
