@@ -1,7 +1,7 @@
 version: '2'
 services:
   web:
-    image: dtrip-api
+    image: avral/dtrip-api
     command: "gunicorn app:app -b 0.0.0.0:5000 --workers=4 --timeout=30 --log-level=debug"
     ports:
         - "127.0.0.1:6000:5000"
