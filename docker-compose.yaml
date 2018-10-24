@@ -20,7 +20,7 @@ services:
     image: avral/dtrip-api
     environment:
         - DB_HOST=db
-    command: python parser.py --resync
+    command: python -u parser.py --resync
 
   db:
     image: mongo:latest
