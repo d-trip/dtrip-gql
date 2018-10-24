@@ -127,7 +127,6 @@ def parse():
     for op in blockchain.stream(filter_by=['comment'], start_block=BLOCK_NUM):
         handle_post(op)
         settings.update_last_block(op['block_num'])
-        print(settings.last_block())
 
 
 if __name__ == '__main__':
