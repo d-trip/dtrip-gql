@@ -106,26 +106,32 @@ def get_posts(query):
 
 
 def parse():
-    query = {'tag': APP_TAG, 'limit': 100}
-    posts = get_posts(query)
-
-    while True:
-        for post in posts:
-            handle_post(post)
-
-        query['start_author'] = post['author']
-        query['start_permlink'] = post['permlink']
-
+    if args.resync:
+        query = {'tag': APP_TAG, 'limit': 100}
         posts = get_posts(query)
 
-        if len(posts) == 1 and posts[0]['url'] == post['url']:
-            break
+        while True:
+            for post in posts:
+                handle_post(post)
 
-    print('Posts Synced')
+            query['start_author'] = post['author']
+            query['start_permlink'] = post['permlink']
+
+            posts = get_posts(query)
+
+            if len(posts) == 1 and posts[0]['url'] == post['url']:
+                break
+
+        print('Posts Synced')
 
     for op in blockchain.stream(filter_by=['comment'], start_block=BLOCK_NUM):
         handle_post(op)
+        settings.update_last_block(op['block_num'])
+        print(settings.last_block())
 
 
 if __name__ == '__main__':
-    parse()
+    try:
+        parse()
+    except KeyboardInterrupt:
+        print('Exit...')
