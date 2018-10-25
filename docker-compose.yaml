@@ -21,6 +21,8 @@ services:
     environment:
         - DB_HOST=db
     command: python -u parser.py --resync
+    depends_on:
+        - db
 
   db:
     image: mongo:latest
