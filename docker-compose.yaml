@@ -2,6 +2,7 @@ version: '2'
 services:
   web:
     image: avral/dtrip-api
+    restart: unless-stopped
     command: "gunicorn app:app -b 0.0.0.0:5000 --log-level=debug"
     ports:
         - "127.0.0.1:6000:5000"
@@ -25,6 +26,7 @@ services:
         - db
 
   db:
+    restart: unless-stopped
     image: mongo:latest
     volumes:
        - ./data/db:/data/db
