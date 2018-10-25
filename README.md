@@ -1,6 +1,9 @@
 # dtrip-api
 Back-end of DTrip app for STEEM
 
+## Routes
+* GraphQL ``` /graphql ```
+
 ## Stack
 * Python 3.6
 * Flask
